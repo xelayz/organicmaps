@@ -7,7 +7,6 @@
 #include <QtCore/QFile>
 #include <QtCore/QProcess>
 #include <QtCore/QProcessEnvironment>
-#include <QtCore/QRegExp>
 
 #include <exception>
 #include <iomanip>  // std::quoted
@@ -23,7 +22,7 @@ QString ExecProcess(QString const & program, std::initializer_list<QString> args
   QProcess p;
   if (nullptr != env)
     p.setProcessEnvironment(*env);
-  
+
   p.start(program, qargs, QIODevice::ReadOnly);
   p.waitForFinished(-1);
 
@@ -112,10 +111,10 @@ QString GetExternalPath(QString const & name, QString const & primaryPath,
   if (!QFileInfo::exists(path) && secondaryPath.isEmpty())
   {
     QString const appPath = QCoreApplication::applicationDirPath();
-    QRegExp rx("(/[^/]*\\.app)", Qt::CaseInsensitive);
-    int i = rx.indexIn(appPath);
-    if (i >= 0)
-      path = JoinPathQt({appPath.left(i), name});
+//    QRegExp rx("(/[^/]*\\.app)", Qt::CaseInsensitive);
+//    int i = rx.indexIn(appPath);
+//    if (i >= 0)
+//      path = JoinPathQt({appPath.left(i), name});
   }
   return path;
 }
